@@ -8,13 +8,13 @@ import {
 } from "ton-core";
 
 // eslint-disable-next-line camelcase
-import { sha256_sync as sha256 } from "ton-crypto";
+import { sha256_sync } from "ton-crypto";
 
 import walletHex from "./jetton-wallet.compiled";
 import minterHex from "./jetton-minter.compiled";
 import { NFTDictValueSerializer } from "../helpers/nftDict";
 
-export const JETTON_DEPLOY_GAS = 10000000; // toNano(0.25)
+export const JETTON_DEPLOY_GAS = 100000000; // toNano(0.25)
 
 export type JettonMetaDataKeys =
   | "name"
@@ -22,18 +22,31 @@ export type JettonMetaDataKeys =
   | "image"
   | "symbol"
   | "image_data"
-  | "decimals";
+  | "decimals"
+  | "uri";
 
 const jettonOnChainMetadataSpec: {
   [key in JettonMetaDataKeys]: "utf8" | "ascii" | undefined;
 } = {
+  image: "ascii",
   name: "utf8",
   description: "utf8",
-  image: "ascii",
   decimals: "utf8",
   symbol: "utf8",
   image_data: undefined,
+  uri: undefined,
 };
+
+// Ujednolicone klucze metadanych - identyczne jak w nftContent.ts
+const jettonKeys = [
+  'image',
+  'name', 
+  'description',
+  'decimals',
+  'symbol',
+  'image_data',
+  'uri',
+];
 
 const ONCHAIN_CONTENT_PREFIX = 0x00;
 const OFFCHAIN_CONTENT_PREFIX = 0x01;
@@ -94,13 +107,18 @@ export function buildJettonOnchainMetadata(data: {
     Dictionary.Keys.Buffer(32),
     NFTDictValueSerializer
   );
-  for (const [k, v] of Object.entries(data)) {
-    dataDict.set(sha256(k), {
-      content: Buffer.from(
-        v as string,
-        jettonOnChainMetadataSpec[k as JettonMetaDataKeys]
-      ),
-    });
+  
+  // Używamy ujednoliconych kluczy zamiast Object.entries(data)
+  for (const key of jettonKeys) {
+    const value = data[key];
+    if (value !== undefined) {
+      dataDict.set(sha256_sync(key), {
+        content: Buffer.from(
+          value,
+          jettonOnChainMetadataSpec[key as JettonMetaDataKeys] || "utf8"
+        ),
+      });
+    }
   }
 
   return beginCell()

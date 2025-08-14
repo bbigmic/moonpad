@@ -101,11 +101,11 @@ const CreateToken = () => {
           BigInt(formData.amount) * 10n ** BigInt(formData.decimals),
         owner: Address.parse(walletAddress),
         onchainMetaData: {
-          name: formData.name,
-          symbol: formData.symbol,
-          decimals: formData.decimals,
-          description: formData.description,
           image: formData.logo,
+          name: formData.name,
+          description: formData.description,
+          decimals: formData.decimals,
+          symbol: formData.symbol,
         },
       },
       undefined
