@@ -15,7 +15,7 @@ const Home = () => {
           Your Gateway to Effortless Token Launches
         </h1>
         <p className="mt-6 lg:mt-12 text-base text-white max-w-[500px] opacity-100 ">
-          Safemoonton Launchpad empowers anyone to launch their own token and
+          Safe TON Launchpad empowers anyone to launch their own token and
           conduct initial token sales with unparalleled ease whether you’re an
           experienced developer or a complete beginner.
         </p>

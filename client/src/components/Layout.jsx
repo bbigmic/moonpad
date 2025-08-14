@@ -20,7 +20,7 @@ import { MdClose } from "react-icons/md";
 import { useDarkMode } from "../context/DarkModeContext";
 import MenuIcon from "./MenuIcon";
 
-import Logo from "../assets/images/launchpad-logo.png";
+import Logo from "../assets/images/SAFE_TON_LOGO.png";
 import { useTonAddress, TonConnectButton } from "@tonconnect/ui-react";
 import { Link } from "react-router-dom";
 import { isAdmin } from "../assets/admin";
@@ -95,7 +95,7 @@ const Layout = ({ children }) => {
               >
                 <img src={Logo} alt="logo" className="w-12 lg:w-14" />
                 <span className="hidden md:block lg:block font-medium tracking-wider">
-                  SafemoonPad
+                  SAFE TON PAD
                 </span>
               </Link>
               <div className="flex gap-2">

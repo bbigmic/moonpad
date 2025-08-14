@@ -11,10 +11,10 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <RecoilRoot>
     <BrowserRouter>
       <TonConnectUIProvider
-        manifestUrl="https://safemoonlaunch.vercel.app/manifest.json"
+        manifestUrl="https://safeton.fun/manifest.json"
         uiPreferences={{ theme: THEME.DARK }}
         actionsConfiguration={{
-          twaReturnUrl: "https://safemoonlaunch.vercel.app",
+          twaReturnUrl: "https://safeton.fun",
         }}
       >
         <DarkModeProvider>
