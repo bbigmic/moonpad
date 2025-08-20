@@ -6,6 +6,7 @@ import config from "../config";
 import { Address, fromNano } from "ton-core";
 import { useTonAddress } from "@tonconnect/ui-react";
 import { makeElipsisAddress } from "../helpers";
+import { getTokenDataNew } from "../helpers/tonApi";
 //@ts-ignore
 import DefaultImage from "../assets/images/default.png";
 
@@ -29,12 +30,35 @@ const MyTokens = () => {
       const response = await axios.get(
         `${API_URL}${Address.normalize(walletAddress)}/jettons`
       );
-      setIsLoading(false);
-      setTokens(response?.data?.balances);
-      setFilteredTokens(response?.data?.balances);
+      const balances = response?.data?.balances || [];
+
+      // Enrich jetton metadata to avoid UKWN names from some sources
+      const enriched = await Promise.all(
+        balances.map(async (t: any) => {
+          try {
+            const meta = await getTokenDataNew(t?.jetton?.address);
+            return {
+              ...t,
+              jetton: {
+                ...t.jetton,
+                name: meta?.name || t?.jetton?.name || "",
+                symbol: meta?.symbol || t?.jetton?.symbol || "",
+                image: meta?.logo || t?.jetton?.image || "",
+              },
+            };
+          } catch (_) {
+            return t;
+          }
+        })
+      );
+
+      setTokens(enriched);
+      setFilteredTokens(enriched);
       setCurrentPage(1);
+      setIsLoading(false);
     } catch (error) {
       console.error(error);
+      setIsLoading(false);
     }
   }
 
@@ -43,8 +67,8 @@ const MyTokens = () => {
     setSearchQuery(query);
     const filtered = tokens.filter(
       (token) =>
-        token?.jetton.name.toLowerCase().includes(query.toLowerCase()) ||
-        token?.jetton.symbol.toLowerCase().includes(query.toLowerCase())
+        (token?.jetton?.name || "").toLowerCase().includes(query.toLowerCase()) ||
+        (token?.jetton?.symbol || "").toLowerCase().includes(query.toLowerCase())
     );
     setFilteredTokens(filtered);
     setCurrentPage(1);
@@ -126,7 +150,7 @@ const MyTokens = () => {
             <>
               {currentTokens.length > 0 ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 mb-8">
-                  {currentTokens.map((token) => (
+                  {currentTokens.map((token: any) => (
                     <Link
                       to={`/token/${token.jetton.address}`}
                       key={token.jetton.address}
@@ -150,8 +174,8 @@ const MyTokens = () => {
                       </div>
 
                       <div className="mt-2 mb-2 font-bold text-xl">
-                        {token.jetton.name.slice(0, 24)}
-                        {token.jetton.name.length > 24 && "..."}
+                        {(token.jetton.name || "").slice(0, 24)}
+                        {(token.jetton.name || "").length > 24 && "..."}
                       </div>
                       <div>
                         <div className="mt-2 pb-2 flex justify-between items-center border-b dark:border-gray-600">
@@ -161,14 +185,14 @@ const MyTokens = () => {
                           </div>
                         </div>
                         <div className="mt-2 pb-2 flex justify-between items-center border-b dark:border-gray-600">
-                          My Balance:{" "}
+                          My Balance: {""}
                           <div>
-                            {formatNumber(fromNano(token.balance))}{" "}
+                            {formatNumber(fromNano(token.balance))} {" "}
                             {token.jetton.symbol}
                           </div>
                         </div>
                         <div className="mt-2 pb-2 flex justify-between items-center border-b dark:border-gray-600">
-                          Allocations:{" "}
+                          Allocations: {" "}
                           <div>
                             {" "}
                             {makeElipsisAddress(
@@ -202,11 +226,11 @@ const MyTokens = () => {
           <div className="flex justify-center mt-6">
             <button
               onClick={handlePreviousPage}
-              className={`${
-                currentPage === 1
+              className={`$
+                {currentPage === 1
                   ? "bg-gray-200 dark:bg-gray-700 text-gray-400 dark:text-gray-600 cursor-not-allowed"
-                  : "bg-safemoon text-white cursor-pointer"
-              } py-2 px-4 rounded-l-full transition-colors duration-300 hover:bg-safemoon-alt`}
+                  : "bg-safemoon text-white cursor-pointer"}
+              py-2 px-4 rounded-l-full transition-colors duration-300 hover:bg-safemoon-alt`}
               disabled={currentPage === 1}
             >
               Previous
@@ -215,22 +239,22 @@ const MyTokens = () => {
               <button
                 key={index}
                 onClick={() => handlePageClick(index + 1)}
-                className={`${
-                  currentPage === index + 1
+                className={`$
+                  {currentPage === index + 1
                     ? "bg-safemoon-alt text-white"
-                    : "bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
-                } py-2 px-4 transition-colors duration-300 hover:bg-safemoon-alt`}
+                    : "bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300"}
+                py-2 px-4 transition-colors duration-300 hover:bg-safemoon-alt`}
               >
                 {index + 1}
               </button>
             ))}
             <button
               onClick={handleNextPage}
-              className={`${
-                currentPage === totalPages
+              className={`$
+                {currentPage === totalPages
                   ? "bg-gray-200 dark:bg-gray-700 text-gray-400 dark:text-gray-600 cursor-not-allowed"
-                  : "bg-safemoon text-white cursor-pointer"
-              } py-2 px-4 rounded-r-full transition-colors duration-300 hover:bg-safemoon-alt`}
+                  : "bg-safemoon text-white cursor-pointer"}
+              py-2 px-4 rounded-r-full transition-colors duration-300 hover:bg-safemoon-alt`}
               disabled={currentPage === totalPages}
             >
               Next
