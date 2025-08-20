@@ -20,10 +20,10 @@ const Home = () => {
           experienced developer or a complete beginner.
         </p>
         <button
-          onClick={() => navigate("/safe-launch/create")}
+          onClick={() => navigate("/token/create")}
           className="mt-6 lg:mt-36 py-3 sm:py-2 px-5 sm:px-6 rounded-2xl text-sm font-semibold dark:bg-white dark:hover:bg-white/20 text-safemoon-dark bg-white dark:hover:text-white hover:text-white hover:bg-white/20 dark:text-safemoon-dark"
         >
-          Launch Project
+          Launch Token
         </button>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
@@ -37,10 +37,10 @@ const Home = () => {
               equitable distribution of tokens.
             </p>
             <button
-              onClick={() => navigate("/safe-launch")}
+              onClick={() => navigate("#")}
               className="py-3 sm:py-2 px-5 sm:px-6 rounded-2xl text-sm font-semibold dark:bg-white dark:hover:bg-white/20 text-safemoon-dark bg-white dark:hover:text-white hover:text-white hover:bg-white/20 dark:text-safemoon-dark"
             >
-              Check it out
+              Check it soon
             </button>
           </div>
         </div>
@@ -54,10 +54,10 @@ const Home = () => {
               stability and trust in your token’s ecosystem.
             </p>
             <button
-              onClick={() => navigate("/safe-lock")}
+              onClick={() => navigate("#")}
               className="py-3 sm:py-2 px-5 sm:px-6 rounded-2xl text-sm font-semibold dark:bg-white dark:hover:bg-white/20 text-safemoon-dark bg-white dark:hover:text-white hover:text-white hover:bg-white/20 dark:text-safemoon-dark"
             >
-              Check it out
+              Check it soon
             </button>
           </div>
         </div>
@@ -71,10 +71,10 @@ const Home = () => {
               supporters efficiently using SAFE Drop.
             </p>
             <button
-              onClick={() => navigate("/safe-drop")}
+              onClick={() => navigate("#")}
               className="py-3 sm:py-2 px-5 sm:px-6 rounded-2xl text-sm font-semibold dark:bg-white dark:hover:bg-white/20 text-safemoon-dark bg-white dark:hover:text-white hover:text-white hover:bg-white/20 dark:text-safemoon-dark"
             >
-              Check it out
+              Check it soon
             </button>
           </div>
         </div>

@@ -20,7 +20,7 @@ import { MdClose } from "react-icons/md";
 import { useDarkMode } from "../context/DarkModeContext";
 import MenuIcon from "./MenuIcon";
 
-import Logo from "../assets/images/SAFE_TON_LOGO.png";
+import Logo from "../assets/images/safeton_logo.png";
 import { useTonAddress, TonConnectButton } from "@tonconnect/ui-react";
 import { Link } from "react-router-dom";
 import { isAdmin } from "../assets/admin";
@@ -169,7 +169,7 @@ const Layout = ({ children }) => {
                       isMenuOpen={isMenuOpen}
                       toggleMenu={() => setIsMenuOpen(false)}
                     />
-                    <MenuIcon
+                    {/* <MenuIcon
                       icon={<PiRocketLaunchDuotone size="25px" />}
                       title="SAFE Launch"
                       isOpen={submenuOpen[0]}
@@ -186,7 +186,7 @@ const Layout = ({ children }) => {
                       toggleDropdown={() => toggleSubmenu(4)}
                       isMenuOpen={isMenuOpen}
                       toggleMenu={() => setIsMenuOpen(false)}
-                    />
+                    /> 
                     <MenuIcon
                       icon={<RiSignalTowerLine size="25px" />}
                       title="SAFE Drop"
@@ -204,7 +204,7 @@ const Layout = ({ children }) => {
                       toggleDropdown={() => toggleSubmenu(2)}
                       isMenuOpen={isMenuOpen}
                       toggleMenu={() => setIsMenuOpen(false)}
-                    />
+                    />*/}
 
                     {wallet && isAdmin(wallet) && (
                       <MenuIcon
@@ -233,7 +233,7 @@ const Layout = ({ children }) => {
                     <MenuIcon
                       icon={<RiFileTextLine size="25px" />}
                       title="Docs"
-                      url="https://safemoonton.gitbook.io/docs"
+                      url="#"
                       isOpen={submenuOpen[6]}
                       redirect
                       toggleDropdown={() => toggleSubmenu(6)}
@@ -243,7 +243,7 @@ const Layout = ({ children }) => {
                     <MenuIcon
                       icon={<RiCoinLine size="25px" />}
                       title="Buy $SAFET"
-                      url="https://app.ston.fi/swap?chartVisible=false&ft=TON&tt=EQBgLw3RLkELgOJUU1oHtHzwkoTdb4RgfT8IgTG6k_iLneEc"
+                      url="#"
                       isOpen={submenuOpen[7]}
                       redirect
                       toggleDropdown={() => toggleSubmenu(7)}
@@ -254,7 +254,7 @@ const Layout = ({ children }) => {
                     <MenuIcon
                       icon={<RiQuestionLine size="25px" />}
                       title="About $SAFET"
-                      url="https://safemoonton.gitbook.io/docs"
+                      url="#"
                       isOpen={submenuOpen[6]}
                       redirect
                       toggleDropdown={() => toggleSubmenu(6)}
@@ -264,7 +264,7 @@ const Layout = ({ children }) => {
                     <MenuIcon
                       icon={<RiTwitterXLine size="25px" />}
                       title="Twitter/X"
-                      url="https://twitter.com/Safemoon_Ton"
+                      url="#"
                       redirect
                       isOpen={submenuOpen[8]}
                       toggleDropdown={() => toggleSubmenu(8)}
@@ -274,7 +274,7 @@ const Layout = ({ children }) => {
                     <MenuIcon
                       icon={<RiTelegramLine size="25px" />}
                       title="Telegram"
-                      url="https://t.me/SafemoonTon"
+                      url="#"
                       redirect
                       isOpen={submenuOpen[9]}
                       toggleDropdown={() => toggleSubmenu(9)}
@@ -282,7 +282,7 @@ const Layout = ({ children }) => {
                       toggleMenu={() => setIsMenuOpen(false)}
                     />
                     <footer className="text-center text-xs my-4">
-                      <p>&copy; {currentYear} Safemoon Launchpad Beta</p>
+                      <p>&copy; {currentYear} Safe Launchpad Beta</p>
                     </footer>
                   </div>
                 </div>
